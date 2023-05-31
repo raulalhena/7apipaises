@@ -10,32 +10,40 @@ const getCountries = async () => {
     }
 }
 
-const getNeighborgCountries = async (countryCode) => {
+const getNeighborCountries = async (countryCode) => {
     let key = `OWXE6CFBZWHH7XWDAEBYGCUSNEY21T7K`;
-    let url = `http://localhost:3000?key=${key}&format=json&country_code=${countryCode}`;
+    let url = `https://api.geodatasource.com/neighboring-countries?key=${key}&format=json&country_code=${countryCode}`;
 
     try {
         const response = await fetch(url, {
-            method: 'GET',
-            mode: 'cors'
+            method: 'GET'
         });
-
-        return response.json();
+        return await response.json();
     } catch (e) {
         console.log(`Error getting neighborg countries ${e}`);
     }
 }
 
-const createDialog = async (dialog, countryCode) => {
-    const section = document.getElementById("neighbors");
-    console.log(section.parentElement)
-    const neightborgCountries = await getNeighborgCountries(countryCode);
+const createMap = (country) => {
+    const latitudeLongitude = country.latlng;
+    let map = L.map('map').setView(latitudeLongitude, 5);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    L.marker(latitudeLongitude).addTo(map);
+}
 
+const createDialog = async (dialog, country) => {
+    const neighbors = document.getElementById("neighbors");
+    const title = document.getElementById("country-title");
+    const neightborCountries = await getNeighborCountries(country.altSpellings[0]);
 
-    neightborgCountries.forEach(country => {
-        console.log("neighb countr ", country.country_name)
-        section.innerHTML += `<p>${country.country_name}</p>`;
+    title.innerText += ` ${country.name.common}`;
+    neightborCountries.forEach(country => {
+        neighbors.innerHTML += `<p>${country.country_name}</p>`;
     });
+    createMap(country);
     dialog.showModal();
 }
 
@@ -46,7 +54,7 @@ const setCountryClick = (countries, containerCountries) => {
         countryButtons[i].addEventListener('click', async (e) => {
             const countryNeighborgsDialog = document.getElementById("neighboring-countries");
             e.preventDefault();
-            await createDialog(countryNeighborgsDialog, countries[i].altSpellings[0]);
+            await createDialog(countryNeighborgsDialog, countries[i]);
         });
     };
 }
