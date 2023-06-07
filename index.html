@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -18,21 +18,31 @@
 
     </header>
     <main>
-        <section id="container-countries">
-
+        <section>
+            <h1>Countries</h1>
         </section>
-        <!-- <div id="map"></div> -->
+        <section id="container-countries">
+            <ul id="countries-list">
+
+            </ul>
+        </section>
     </main>
-    <script src="./app.js" type="module"></script>
+
     <dialog id="neighboring-countries">
-        <div id="neighbors">
-            <h2 id="country-title">Neighbors Countries Of</h2>
+        <div id="dialog-container">
+            <div>
+                <h2 id="country-title">Neighbors Countries Of</h2>
+                <ul id="neighbors">
+                </ul>
+            </div>
+            <div id="map-container">
 
+            </div>
         </div>
-        <div id="map">
-
-        </div>
+        <button id="close-dialog">Close</button>
     </dialog>
+    <script src="./app.js" type="module"></script>
 </body>
+
 
 </html>

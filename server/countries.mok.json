@@ -1,0 +1,26 @@
+[
+    {
+        "name": {
+            "common": "Albania"
+        },
+        "latlng": [
+            53.25,
+            -9
+        ],
+        "altSpellings": [
+            "JO"
+        ]
+    },
+    {
+        "name": {
+            "common": "Tazmania"
+        },
+        "latlng": [
+            83.25,
+            23
+        ],
+        "altSpellings": [
+            "TZ"
+        ]
+    }
+]
